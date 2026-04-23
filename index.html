@@ -2,18 +2,43 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>美容师初级考题自测</title>
+    <title>美容师初级备考 · 我的小房间</title>
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
         body {
-            font-family: system-ui, sans-serif;
+            font-family: system-ui, 'Segoe UI', sans-serif;
             background: #fef7f0;
             padding: 20px;
         }
-        .container {
-            max-width: 800px;
+        .main-container {
+            max-width: 900px;
             margin: 0 auto;
+        }
+        /* 小房间标题区 */
+        .room-header {
+            background: linear-gradient(135deg, #fff0e6, #ffe2d4);
+            border-radius: 30px;
+            padding: 25px;
+            margin-bottom: 25px;
+            text-align: center;
+            border: 2px dashed #dc8e65;
+        }
+        .room-header h1 {
+            color: #d81b60;
+            font-size: 28px;
+        }
+        .room-header p {
+            color: #6b4c36;
+            margin-top: 8px;
+        }
+        /* 刷题卡片区 */
+        .quiz-room {
             background: white;
-            border-radius: 20px;
+            border-radius: 30px;
             padding: 25px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
@@ -78,26 +103,46 @@
             font-weight: bold;
             color: #d81b60;
         }
+        footer {
+            text-align: center;
+            margin-top: 25px;
+            font-size: 13px;
+            color: #aa8870;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1>📝 美容师初级 · 理论自测</h1>
-    <p style="text-align: center;">点击选项选择答案，答对自动标记绿色</p>
-    
-    <div id="quiz"></div>
-    
-    <button onclick="showScore()">查看得分</button>
-    <div id="scoreResult" class="result" style="display: none;"></div>
+<div class="main-container">
+    <!-- 🧸 小房间入口／装饰区 -->
+    <div class="room-header">
+        <h1>🧴 我的美业小房间 🧴</h1>
+        <p>✨ 刷题 | 成长 | 拿证 ✨</p>
+        <p>👇 下面就是我的专属刷题区 👇</p>
+    </div>
+
+    <!-- 📝 刷题区（原150道.html的内容） -->
+    <div class="quiz-room">
+        <h1>📝 美容师初级 · 理论自测</h1>
+        <p style="text-align: center;">点击选项选择答案，答对自动标记绿色</p>
+        
+        <div id="quiz"></div>
+        
+        <button onclick="showScore()">查看得分</button>
+        <div id="scoreResult" class="result" style="display: none;"></div>
+    </div>
+
+    <footer>
+        🌸 每天进步一点点 · 我的备考小房间
+    </footer>
 </div>
 
 <script>
-    // 题库
+    // 题库（你可以继续增加到150题）
     const questions = [
         {
             text: "1. 中性皮肤的pH值范围通常是？",
             options: ["4.5～5.5", "5.5～6.5", "6.5～7.5", "7.5～8.5"],
-            correct: 1  // 索引从0开始，1表示第二个选项
+            correct: 1
         },
         {
             text: "2. 以下哪个成分适合干性皮肤保湿？",
@@ -138,7 +183,6 @@
                 optDiv.innerHTML = `${String.fromCharCode(65+optIdx)}. ${opt}`;
                 optDiv.onclick = () => selectAnswer(idx, optIdx);
                 
-                // 如果已经选过，高亮显示
                 if (userAnswers[idx] === optIdx) {
                     optDiv.classList.add(q.correct === optIdx ? 'correct' : 'wrong');
                 }
@@ -152,7 +196,7 @@
     
     function selectAnswer(qIdx, optIdx) {
         userAnswers[qIdx] = optIdx;
-        loadQuiz(); // 重新加载以显示颜色
+        loadQuiz();
     }
     
     function showScore() {
@@ -168,7 +212,6 @@
         resultDiv.innerHTML = `你的得分：<span class="score">${score}</span> / ${questions.length}<br>
         ${score >= 3 ? '🎉 恭喜你，继续努力！' : '📚 再复习一下，加油！'}`;
         
-        // 滚动到结果
         resultDiv.scrollIntoView({ behavior: 'smooth' });
     }
     

@@ -411,4 +411,103 @@
                 const qNumber = idx + 1;
                 const selected = userAnswers[idx];
                 html += `<div class="question-card" data-index="${idx}">`;
-                html +=
+                html += `<div class="question-header"><span class="q-num">第 ${qNumber} 题</span><span class="q-text">${item.q}</span></div>`;
+                html += `<div class="options">`;
+                item.options.forEach((opt, optIdx) => {
+                    const checked = (selected === optIdx) ? 'checked' : '';
+                    html += `<label class="option"><input type="radio" name="q${idx}" value="${optIdx}" ${checked} data-opt="${optIdx}"> ${opt}</label>`;
+                });
+                html += `</div>`;
+                html += `<div class="answer-section">`;
+                html += `<button class="show-answer-btn outline" data-index="${idx}">🔍 查看解析</button>`;
+                html += `<span class="status-badge" id="status-${idx}"></span>`;
+                html += `</div>`;
+                html += `<div class="explanation" id="exp-${idx}"><strong>✅ 正确答案：${item.options[item.answer]}。</strong><br>📘 解析：${item.exp}</div>`;
+                html += `</div>`;
+            });
+            container.innerHTML = html;
+            updateProgressAndStatus();
+            attachEvents();
+        }
+
+        function attachEvents() {
+            // 监听选项变化
+            container.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const card = e.target.closest('.question-card');
+                    const idx = parseInt(card.dataset.index);
+                    const val = parseInt(e.target.value);
+                    userAnswers[idx] = val;
+                    updateProgressAndStatus();
+                });
+            });
+            // 查看解析按钮
+            container.querySelectorAll('.show-answer-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const idx = btn.dataset.index;
+                    const expDiv = document.getElementById(`exp-${idx}`);
+                    expDiv.classList.toggle('show');
+                });
+            });
+        }
+
+        function updateProgressAndStatus() {
+            const total = questionBank.length;
+            const answeredCount = userAnswers.filter(a => a !== null).length;
+            const percent = Math.round((answeredCount / total) * 100);
+            progressBar.value = answeredCount;
+            progressPercentSpan.innerText = `${percent}%`;
+            progressDisplaySpan.innerText = `已答 ${answeredCount} / ${total}`;
+
+            // 更新每个题目的状态小标记（正确/错误）
+            questionBank.forEach((item, idx) => {
+                const statusSpan = document.getElementById(`status-${idx}`);
+                if (!statusSpan) return;
+                const selected = userAnswers[idx];
+                if (selected === null) {
+                    statusSpan.innerHTML = '';
+                    return;
+                }
+                const isCorrect = (selected === item.answer);
+                statusSpan.innerHTML = isCorrect ? 
+                    '<span class="correct-badge">✓ 正确</span>' : 
+                    `<span class="correct-badge wrong-badge">✗ 错误 (选${item.options[selected]})</span>`;
+            });
+        }
+
+        // 全部展开解析
+        function showAllExplanations(show = true) {
+            for (let i=0; i<150; i++) {
+                const exp = document.getElementById(`exp-${i}`);
+                if(exp) {
+                    if(show) exp.classList.add('show');
+                    else exp.classList.remove('show');
+                }
+            }
+        }
+
+        // 重置所有答案
+        function resetAllAnswers() {
+            userAnswers = new Array(150).fill(null);
+            // 清除radio选中
+            const radios = container.querySelectorAll('input[type="radio"]');
+            radios.forEach(r => r.checked = false);
+            updateProgressAndStatus();
+        }
+
+        document.getElementById('resetAllBtn').addEventListener('click', resetAllAnswers);
+        document.getElementById('showAllAnswersBtn').addEventListener('click', ()=>{
+            showAllExplanations(true);
+        });
+        // 额外：也可以加隐藏解析，但不需要单独按钮
+
+        // 初始化渲染
+        renderQuestions();
+
+        // 辅助：重新绑定可能遗漏
+        window.updateProgressAndStatus = updateProgressAndStatus;
+    })();
+</script>
+</body>
+</html>

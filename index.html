@@ -2,220 +2,114 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>美容师初级备考 · 我的小房间</title>
+    <title>小美的美业小窝</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
         body {
-            font-family: system-ui, 'Segoe UI', sans-serif;
             background: #fef7f0;
+            font-family: system-ui, 'Segoe UI', sans-serif;
             padding: 20px;
         }
-        .main-container {
+        .container {
             max-width: 900px;
             margin: 0 auto;
         }
-        /* 小房间标题区 */
-        .room-header {
-            background: linear-gradient(135deg, #fff0e6, #ffe2d4);
-            border-radius: 30px;
-            padding: 25px;
-            margin-bottom: 25px;
-            text-align: center;
-            border: 2px dashed #dc8e65;
-        }
-        .room-header h1 {
-            color: #d81b60;
-            font-size: 28px;
-        }
-        .room-header p {
-            color: #6b4c36;
-            margin-top: 8px;
-        }
-        /* 刷题卡片区 */
-        .quiz-room {
+        /* 自我介绍卡 */
+        .intro {
             background: white;
             border-radius: 30px;
-            padding: 25px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        h1 {
+            padding: 30px;
             text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .intro h1 {
             color: #d81b60;
         }
-        .question {
+        .intro p {
+            color: #6b4c36;
+        }
+        .badge {
             background: #fce4ec;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        /* 小房间网格 */
+        .room-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        .room-card {
+            background: white;
+            border-radius: 24px;
             padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
-        .question-text {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .option {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            background: #f5f5f5;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-        .option:hover {
-            background: #e0e0e0;
-        }
-        .correct {
-            background: #c8e6c9;
-            border-left: 5px solid #4caf50;
-        }
-        .wrong {
-            background: #ffcdd2;
-            border-left: 5px solid #f44336;
-        }
-        .result {
             text-align: center;
-            font-size: 18px;
-            margin-top: 20px;
-            padding: 10px;
-            background: #fce4ec;
-            border-radius: 10px;
+            transition: 0.2s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border: 1px solid #ffe0ce;
         }
-        button {
+        .room-card h3 {
+            color: #d81b60;
+            margin-bottom: 10px;
+        }
+        .room-card button {
             background-color: #dc8e65;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            font-size: 16px;
+            padding: 8px 16px;
+            border-radius: 40px;
+            font-size: 14px;
+            margin-top: 12px;
             cursor: pointer;
-            margin-top: 20px;
-            width: 100%;
         }
-        button:hover {
+        .room-card button:hover {
             background-color: #c2572c;
-        }
-        .score {
-            font-size: 24px;
-            font-weight: bold;
-            color: #d81b60;
         }
         footer {
             text-align: center;
-            margin-top: 25px;
-            font-size: 13px;
+            margin-top: 40px;
+            font-size: 12px;
             color: #aa8870;
         }
     </style>
 </head>
 <body>
-<div class="main-container">
-    <!-- 🧸 小房间入口／装饰区 -->
-    <div class="room-header">
-        <h1>🧴 我的美业小房间 🧴</h1>
-        <p>✨ 刷题 | 成长 | 拿证 ✨</p>
-        <p>👇 下面就是我的专属刷题区 👇</p>
+<div class="container">
+    <!-- 自我介绍区 -->
+    <div class="intro">
+        <h1>🌸 小美的美业小窝 🌸</h1>
+        <p>你好呀～ 我是新手女孩，正在自学美容护肤 + 自己敲代码建网站✨</p>
+        <p>这里是我自己做的「美业学习小基地」，欢迎来我的小房间逛逛📚</p>
+        <div class="badge">🧴 初级美容师备考中</div>
     </div>
 
-    <!-- 📝 刷题区（原150道.html的内容） -->
-    <div class="quiz-room">
-        <h1>📝 美容师初级 · 理论自测</h1>
-        <p style="text-align: center;">点击选项选择答案，答对自动标记绿色</p>
-        
-        <div id="quiz"></div>
-        
-        <button onclick="showScore()">查看得分</button>
-        <div id="scoreResult" class="result" style="display: none;"></div>
+    <!-- 两个小房间入口 -->
+    <div class="room-grid">
+        <!-- 房间1：成分表房间 -->
+        <div class="room-card">
+            <h3>🧪 成分小房间</h3>
+            <p>护肤品成分速查表 · 保湿 / 美白 / 抗老</p>
+            <button onclick="location.href='two.html'">🔬 进入成分房间</button>
+        </div>
+        <!-- 房间2：刷题房间 -->
+        <div class="room-card">
+            <h3>📝 刷题小房间</h3>
+            <p>美容师初级 · 理论自测</p>
+            <button onclick="location.href='150道.html'">📖 进入刷题房间</button>
+        </div>
+    </div>
+
+    <!-- 未来扩展提醒（你可以继续加） -->
+    <div style="background: #fff0e6; border-radius: 30px; padding: 20px; margin-top: 30px; text-align: center;">
+        <p>✨ 之后还会再建更多小房间 ✨<br>（中医美容｜实操手法｜考证笔记…）</p>
     </div>
 
     <footer>
-        🌸 每天进步一点点 · 我的备考小房间
+        🧴 新手女孩的成长记录 · 感谢来参观我的小网站
     </footer>
 </div>
-
-<script>
-    // 题库（你可以继续增加到150题）
-    const questions = [
-        {
-            text: "1. 中性皮肤的pH值范围通常是？",
-            options: ["4.5～5.5", "5.5～6.5", "6.5～7.5", "7.5～8.5"],
-            correct: 1
-        },
-        {
-            text: "2. 以下哪个成分适合干性皮肤保湿？",
-            options: ["水杨酸", "烟酰胺", "玻尿酸", "酒精"],
-            correct: 2
-        },
-        {
-            text: "3. 使用小气泡清洁仪时，应该从什么档位开始？",
-            options: ["最高档", "中高档", "低档", "随意"],
-            correct: 2
-        },
-        {
-            text: "4. 维A醇（视黄醇）使用时的注意事项是？",
-            options: ["白天使用", "仅限夜间使用", "孕妇可以用", "没有禁忌"],
-            correct: 1
-        },
-        {
-            text: "5. 以下哪个成分主要功效是美白？",
-            options: ["神经酰胺", "角鲨烷", "烟酰胺", "甘油"],
-            correct: 2
-        }
-    ];
-    
-    let userAnswers = new Array(questions.length).fill(null);
-    
-    function loadQuiz() {
-        const quizDiv = document.getElementById('quiz');
-        quizDiv.innerHTML = '';
-        
-        questions.forEach((q, idx) => {
-            const questionDiv = document.createElement('div');
-            questionDiv.className = 'question';
-            questionDiv.innerHTML = `<div class="question-text">${q.text}</div>`;
-            
-            q.options.forEach((opt, optIdx) => {
-                const optDiv = document.createElement('div');
-                optDiv.className = 'option';
-                optDiv.innerHTML = `${String.fromCharCode(65+optIdx)}. ${opt}`;
-                optDiv.onclick = () => selectAnswer(idx, optIdx);
-                
-                if (userAnswers[idx] === optIdx) {
-                    optDiv.classList.add(q.correct === optIdx ? 'correct' : 'wrong');
-                }
-                
-                questionDiv.appendChild(optDiv);
-            });
-            
-            quizDiv.appendChild(questionDiv);
-        });
-    }
-    
-    function selectAnswer(qIdx, optIdx) {
-        userAnswers[qIdx] = optIdx;
-        loadQuiz();
-    }
-    
-    function showScore() {
-        let score = 0;
-        questions.forEach((q, idx) => {
-            if (userAnswers[idx] === q.correct) {
-                score++;
-            }
-        });
-        
-        const resultDiv = document.getElementById('scoreResult');
-        resultDiv.style.display = 'block';
-        resultDiv.innerHTML = `你的得分：<span class="score">${score}</span> / ${questions.length}<br>
-        ${score >= 3 ? '🎉 恭喜你，继续努力！' : '📚 再复习一下，加油！'}`;
-        
-        resultDiv.scrollIntoView({ behavior: 'smooth' });
-    }
-    
-    loadQuiz();
-</script>
 </body>
 </html>
